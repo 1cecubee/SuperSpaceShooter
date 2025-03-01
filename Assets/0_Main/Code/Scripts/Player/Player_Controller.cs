@@ -1,11 +1,11 @@
 using System.Collections;
+using Emp37.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class Player_Controller : MonoBehaviour, IDamageable
 {
-
-    [Header("PLAYER STATS")]
+    [Title("PLAYER STATS", Shades.Red)]
     [SerializeField] private Slider progressSlider;
 
     [SerializeField] private float bulletSpeed;
@@ -20,7 +20,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private float currentBulletSpawnDuration;
     [SerializeField] private int numbersOfCoins;
 
-    [Header("COMPONENT REF")]
+    [Title("COMPONENT REF", Shades.Green)]
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private Transform bulletSpawnPoint2;
     [SerializeField] private Transform bulletSpawnPoint3;
@@ -53,7 +53,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     {
         playerHealthText = GetComponentInChildren<TMP_Text>();
 
-        coins = FindObjectOfType<Coins_Manager>();
+        coins = FindAnyObjectByType<Coins_Manager>();
         renderer = GetComponent<SpriteRenderer>();
         shield = GameObject.Find("Shield");
     }

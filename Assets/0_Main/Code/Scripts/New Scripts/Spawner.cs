@@ -1,10 +1,9 @@
 using Emp37.Utility;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [Title("References")]
+    [Title("References", Shades.Green)]
     [SerializeField] private new Camera camera;
     [SerializeField] private Transform[] corners = new Transform[4];
     [SerializeField, RequireObject] private Base_Obstacle obstaclePrefab;
@@ -15,20 +14,18 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float offset;
 
 
-    [Title("Timer")]
+    [Title("Timer", Shades.Skyblue)]
     [SerializeField] private float minimumDuration;
     [SerializeField] private float maximumDuration;
     [SerializeField, Readonly] private float elapsedTime;
     [SerializeField, Readonly] private float nextDuration;
 
-    [Title("Edge Collider 2d")]
+    [Title("Edge Collider 2d", Shades.Yellow)]
     [SerializeField] private EdgeCollider2D edgeCollider;
     [SerializeField] private EdgeCollider2D edgeCollider2;
 
 
     private bool istouched = false;
-
-
 
     private void Reset()
     {
