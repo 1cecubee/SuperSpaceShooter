@@ -3,7 +3,7 @@ using UnityEngine;
 public class Level_Manager : MonoBehaviour
 {
     public static Level_Manager instance;
-
+   
     [Header("LEVEL SETTINGS")]
     public int currentLevel = 1;
 

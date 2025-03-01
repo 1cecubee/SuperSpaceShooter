@@ -5,12 +5,10 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private CircleCollider2D circleCollider;
-   [SerializeField,ReadOnly] private Vector3 targetScale = new Vector3(1f, 1f, 1f);
-   [SerializeField,ReadOnly] private float circleColliderTarget = 2.5F;
- [SerializeField,ReadOnly]   private float duration = .4f;
-    
-    private float temp;
-    
+    [SerializeField, ReadOnly] private Vector3 targetScale = new Vector3(1f, 1f, 1f);
+    [SerializeField, ReadOnly] private float circleColliderTarget = 2.5F;
+    [SerializeField, ReadOnly] private float duration = .4f;
+
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();

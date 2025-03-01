@@ -1,5 +1,6 @@
 using System.Collections;
 using Emp37.Utility;
+using MoreMountains.Feedbacks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,9 +22,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private int numbersOfCoins;
 
     [Title("COMPONENT REF", Shades.Green)]
-    [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private Transform bulletSpawnPoint2;
-    [SerializeField] private Transform bulletSpawnPoint3;
+    [SerializeField] private Transform[] bulletSpawnPointt;
     [SerializeField] private CircleCollider2D magnetRange;
 
     [SerializeField] private new SpriteRenderer renderer;
@@ -33,7 +32,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private TMP_Text playerHealthText, coinsText, scoreText;
     [SerializeField] private GameObject bomb, shield, mainMenuCanvas;
     [SerializeField] private Coins_Manager coins;
-
+    [SerializeField] private MMFeedbacks blinkEffect;
 
     private float magnetTimer;
     private float shieldTimer;
@@ -49,6 +48,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     public int score = 1;
     public bool x2Ability, magnetAbility;
 
+
     private void Awake()
     {
         playerHealthText = GetComponentInChildren<TMP_Text>();
@@ -61,6 +61,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
     void Start()
     {
         maxHealth = Mathf.Clamp(maxHealth, 1, targetHealth);
+
+        score = Level_Manager.instance.currentLevel;
 
         mainCamera = Camera.main;
         currentBulletPrefab = defaultBulletPrefab;
@@ -104,21 +106,20 @@ public class Player_Controller : MonoBehaviour, IDamageable
     {
         while (true)
         {
-            var projectile = Instantiate(currentBulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoint.transform.forward * bulletSpeed * Time.deltaTime;
-            projectile.AddForce(bulletSpawnPoint.up * bulletSpeed, ForceMode2D.Impulse);
+            var projectile = Instantiate(currentBulletPrefab, bulletSpawnPointt[0].position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPointt[0].transform.forward * bulletSpeed * Time.deltaTime;
+            projectile.AddForce(bulletSpawnPointt[0].up * bulletSpeed, ForceMode2D.Impulse);
 
             if (bulletSpread)
             {
-                var projectile2 = Instantiate(currentBulletPrefab, bulletSpawnPoint2.position, Quaternion.identity);
-                projectile2.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoint2.transform.forward * bulletSpeed * Time.deltaTime;
-                projectile2.AddForce(bulletSpawnPoint2.up * bulletSpeed, ForceMode2D.Impulse);
+                var projectile2 = Instantiate(currentBulletPrefab, bulletSpawnPointt[1].position, Quaternion.identity);
+                projectile2.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPointt[1].transform.forward * bulletSpeed * Time.deltaTime;
+                projectile2.AddForce(bulletSpawnPointt[1].up * bulletSpeed, ForceMode2D.Impulse);
 
-                var projectile3 = Instantiate(currentBulletPrefab, bulletSpawnPoint3.position, Quaternion.identity);
-                projectile3.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoint3.transform.forward * bulletSpeed * Time.deltaTime;
-                projectile3.AddForce(bulletSpawnPoint3.up * bulletSpeed, ForceMode2D.Impulse);
+                var projectile3 = Instantiate(currentBulletPrefab, bulletSpawnPointt[2].position, Quaternion.identity);
+                projectile3.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPointt[2].transform.forward * bulletSpeed * Time.deltaTime;
+                projectile3.AddForce(bulletSpawnPointt[2].up * bulletSpeed, ForceMode2D.Impulse);
             }
-
             yield return new WaitForSeconds(currentBulletSpawnDuration);
         }
     }
@@ -175,7 +176,6 @@ public class Player_Controller : MonoBehaviour, IDamageable
             Destroy(collision.gameObject);
         }
     }
-
 
     private IEnumerator BulletSpread()
     {
@@ -239,22 +239,13 @@ public class Player_Controller : MonoBehaviour, IDamageable
         x2Ability = false;
         score /= 2;
     }
-
-    private IEnumerator BlinkEffect()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            shield.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.25F);
-
-            shield.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.25F);
-        }
-    }
     public void Damage(float damgeAmount)    // IDamageable function 
     {
         Handheld.Vibrate();
         currentHealth -= damgeAmount;
+
+        blinkEffect.PlayFeedbacks();
+
         if (currentHealth <= 0)
         {
             Handheld.Vibrate();

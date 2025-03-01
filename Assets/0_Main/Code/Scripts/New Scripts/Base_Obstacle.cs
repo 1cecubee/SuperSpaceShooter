@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using TMPro;
@@ -6,7 +7,8 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Base_Obstacle : MonoBehaviour, IDamageable
 {
-    [Header("OBSTACLE STATS")] [SerializeField]
+    [Header("OBSTACLE STATS")]
+    [SerializeField]
     private float currentHealth;
 
     [SerializeField] private float minHealth = 1F;
@@ -16,13 +18,14 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     [SerializeField] private float rotationSpeed;
     [SerializeField] private int score;
 
-    [Header("COMPONENT REF")] [SerializeField]
+    [Header("COMPONENT REF")]
+    [SerializeField]
     private Rigidbody2D r2b;
 
-    [SerializeField] private TMP_Text heatlhText, scoreText, popupText;
-    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp, popupRef;
+    [SerializeField] private TMP_Text heatlhText, scoreText;
+    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp;
     [SerializeField] private Player_Controller playerRef;
-
+    [SerializeField] private MMFeedbacks blinkEffect;
 
     public ObstacelType currentObstacleType;
     public float minScale = 0.4F;
@@ -47,7 +50,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     {
         r2b = GetComponent<Rigidbody2D>();
         heatlhText = GetComponentInChildren<TMP_Text>();
-        playerRef = FindObjectOfType<Player_Controller>();
+        playerRef = FindFirstObjectByType<Player_Controller>();
         gameCamera = Camera.main;
     }
 
@@ -58,25 +61,27 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
         currentObstacleType = GetObstacleTypeBasedOnLevel();
         Debug.Log("ObstacleType is " + currentObstacleType);
         currentHealth = maxHealth;
+
+        scorePopUp.GetComponent<TMP_Text>().text = ("+" + playerRef.score);
+
         ObstacleBehaviour();
         ChangeScale();
     }
 
     private void Update()
     {
+
         heatlhText.text = currentHealth.ToString("00");
-        if (popupText != null)
+        if (scorePopUp != null)
         {
             if (playerRef.x2Ability == true)
             {
-                popupText.color = Color.green;
+                scorePopUp.GetComponent<TMP_Text>().color = Color.green;
             }
             else
             {
-                popupText.color = Color.white;
+                scorePopUp.GetComponent<TMP_Text>().color = Color.white;
             }
-
-            popupText.SetText("+" + playerRef.score);
         }
 
         if (currentHealth <= 0)
@@ -111,9 +116,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
                 }
             }
 
-
             Instantiate(scorePopUp, transform.position, Quaternion.identity);
-
 
             if (playerRef != null)
             {
@@ -293,7 +296,6 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     public void Damage(float damageAmount)
     {
         Color obstacleColour = new Color(UnityEngine.Random.value, 0F, UnityEngine.Random.value, 1.0f);
-        //  obstacle.GetComponent<SpriteRenderer>().color = obstacleColour;
 
         if (decreaseScaleOnHit)
         {
@@ -303,6 +305,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
         if (isVisible)
         {
             currentHealth -= damageAmount;
+            blinkEffect.PlayFeedbacks();
         }
     }
 
