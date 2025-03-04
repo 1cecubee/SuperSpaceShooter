@@ -1,5 +1,4 @@
 using UnityEngine;
-using static Base_Obstacle;
 
 public class New_Projectile : MonoBehaviour
 {

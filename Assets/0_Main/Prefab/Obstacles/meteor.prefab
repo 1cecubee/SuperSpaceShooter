@@ -129,7 +129,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1.015
+  m_Radius: 0.9
 --- !u!50 &8305846852463400871
 Rigidbody2D:
   serializedVersion: 5
@@ -183,6 +183,7 @@ MonoBehaviour:
   coins: {fileID: 8296968390915281137, guid: 491aef87f267b6b4499eb56fcd082267, type: 3}
   goldBar: {fileID: 8423179661023400177, guid: 3c5d55176de847d439e01af63dbfaed3, type: 3}
   scorePopUp: {fileID: 535423897392992665, guid: c4bada309f1fd5643b6c9f60df187c75, type: 3}
+  scoreProgressBar: {fileID: 0}
   playerRef: {fileID: 0}
   blinkEffect: {fileID: 3050398672234212248}
   currentObstacleType: 0

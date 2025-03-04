@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Base_Obstacle : MonoBehaviour, IDamageable
 {
@@ -23,7 +22,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     private Rigidbody2D r2b;
 
     [SerializeField] private TMP_Text heatlhText, scoreText;
-    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp;
+    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp, scoreProgressBar;
     [SerializeField] private Player_Controller playerRef;
     [SerializeField] private MMFeedbacks blinkEffect;
 
@@ -51,6 +50,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
         r2b = GetComponent<Rigidbody2D>();
         heatlhText = GetComponentInChildren<TMP_Text>();
         playerRef = FindFirstObjectByType<Player_Controller>();
+        scoreProgressBar = GameObject.Find("Score - Text");
         gameCamera = Camera.main;
     }
 
@@ -121,6 +121,12 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
             if (playerRef != null)
             {
                 playerRef.currentScore += playerRef.score;
+                Color colour = new Color(UnityEngine.Random.value, 0F, UnityEngine.Random.value, 1.0f);
+
+                gameObject.GetComponent<SpriteRenderer>().color = colour;
+
+                scoreProgressBar.TryGetComponent(out Animator scoreAnimation);
+                scoreAnimation.SetTrigger("PlayAnimation");
             }
 
             Destroy(gameObject);
@@ -295,8 +301,6 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
 
     public void Damage(float damageAmount)
     {
-        Color obstacleColour = new Color(UnityEngine.Random.value, 0F, UnityEngine.Random.value, 1.0f);
-
         if (decreaseScaleOnHit)
         {
             ChangeScale();

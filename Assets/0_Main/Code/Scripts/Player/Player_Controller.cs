@@ -100,6 +100,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     private void LateUpdate()
     {
         currentHealth = Mathf.Clamp(currentHealth, 1, 99);
+        ChangeLevel();
     }
 
     private IEnumerator SpawnBullet()
@@ -152,7 +153,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
             }
             if (powerUpsRef.currentPowerUps == Collectibles.powerUps.HPower)
             {
-                currentHealth++;
+                currentHealth += score;
             }
             if (powerUpsRef.currentPowerUps == Collectibles.powerUps.BPower)
             {
@@ -250,6 +251,19 @@ public class Player_Controller : MonoBehaviour, IDamageable
         {
             Handheld.Vibrate();
             Destroy(gameObject);
+        }
+    }
+
+
+    public void ChangeLevel()
+    {
+        if (currentScore >= targetScore)
+        {
+            currentScore = 0;
+            targetScore += 50;
+            progressSlider.maxValue += 50;
+            score++;
+            Level_Manager.instance.AdvanceLevel();
         }
     }
 }
