@@ -22,7 +22,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     private Rigidbody2D r2b;
 
     [SerializeField] private TMP_Text heatlhText, scoreText;
-    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp, scoreProgressBar;
+    [SerializeField] private GameObject powerUps, coins, goldBar, scorePopUp, scoreProgressBar, blastObject;
     [SerializeField] private Player_Controller playerRef;
     [SerializeField] private MMFeedbacks blinkEffect;
 
@@ -128,8 +128,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
                 scoreProgressBar.TryGetComponent(out Animator scoreAnimation);
                 scoreAnimation.SetTrigger("PlayAnimation");
             }
-
-            Destroy(gameObject);
+            DestroyFunction();
         }
 
         moveObstacle(UnityEngine.Random.Range(minScale, maxScale));
@@ -330,5 +329,16 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     private void OnBecameVisible()
     {
         isVisible = true;
+    }
+
+    private void DestroyFunction()
+    {
+        TryGetComponent(out CircleCollider2D collision);
+        TryGetComponent(out SpriteRenderer spriteRenderer);
+        collision.enabled = false;
+        spriteRenderer.enabled = false;
+        r2b.linearVelocity = Vector3.zero;
+        Instantiate(blastObject, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

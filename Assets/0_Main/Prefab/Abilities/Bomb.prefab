@@ -166,6 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circleCollider: {fileID: 0}
-  targetScale: {x: 1, y: 1, z: 1}
+  targetScale: {x: 2.25, y: 2.25, z: 2.25}
   circleColliderTarget: 2.5
   duration: 0.4

@@ -184,6 +184,7 @@ MonoBehaviour:
   goldBar: {fileID: 8423179661023400177, guid: 3c5d55176de847d439e01af63dbfaed3, type: 3}
   scorePopUp: {fileID: 535423897392992665, guid: c4bada309f1fd5643b6c9f60df187c75, type: 3}
   scoreProgressBar: {fileID: 0}
+  blastObject: {fileID: 6548323238515612035, guid: 6c7b75433e791f34bbf25a675a7f14c1, type: 3}
   playerRef: {fileID: 0}
   blinkEffect: {fileID: 3050398672234212248}
   currentObstacleType: 0
