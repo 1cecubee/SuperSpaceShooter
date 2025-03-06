@@ -30,9 +30,11 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private Rigidbody2D icyBulletPrefab;
     [SerializeField] private Rigidbody2D currentBulletPrefab;
     [SerializeField] private TMP_Text playerHealthText, coinsText, scoreText;
-    [SerializeField] private GameObject bomb, shield, mainMenuCanvas;
+    [SerializeField] private GameObject bomb, shield;
+    [SerializeField] private GameObject[] mainMenuCanvas;
     [SerializeField] private Coins_Manager coins;
-    [SerializeField] private MMFeedbacks blinkEffect;
+
+
 
     private float magnetTimer;
     private float shieldTimer;
@@ -47,6 +49,10 @@ public class Player_Controller : MonoBehaviour, IDamageable
     public int currentScore;
     public int score = 1;
     public bool x2Ability, magnetAbility;
+
+    [Title("F E E L", Shades.Orange)]
+    [SerializeField] private MMFeedbacks blinkEffect;
+    [SerializeField] private MMFeedbacks shieldBlinkEffect;
 
 
     private void Awake()
@@ -71,6 +77,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
         shield.gameObject.SetActive(false);
         currentBulletSpawnDuration = minBulletSpawnDuration;
         StartCoroutine(SpawnBullet());
+
     }
 
     void Update()
@@ -86,7 +93,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            mainMenuCanvas.SetActive(false);
+            mainMenuCanvas[0].SetActive(false);
+            mainMenuCanvas[1].SetActive(false);
             if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Began)
             {
                 touchLocation = mainCamera.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, mainCamera.nearClipPlane));
@@ -211,7 +219,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
             shieldTimer += Time.deltaTime;
             yield return null;
         }
-
+        shieldBlinkEffect.PlayFeedbacks();
+        yield return new WaitForSeconds(1.2F);
         gameObject.tag = "Player";
         shield.gameObject.SetActive(false);
     }

@@ -118,7 +118,6 @@ using UnityEngine;
             return allowedTypes[randomIndex];
         }
 
-
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var playerRef = collision.GetComponent<Player_Controller>();
