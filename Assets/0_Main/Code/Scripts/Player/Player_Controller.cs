@@ -34,8 +34,6 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private GameObject[] mainMenuCanvas;
     [SerializeField] private Coins_Manager coins;
 
-
-
     private float magnetTimer;
     private float shieldTimer;
     private float fireRateTimer;
@@ -53,6 +51,25 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [Title("F E E L", Shades.Orange)]
     [SerializeField] private MMFeedbacks blinkEffect;
     [SerializeField] private MMFeedbacks shieldBlinkEffect;
+
+    [Title("SHIP SELECTOR")]
+    [SerializeField] private Sprite[] ships;
+
+    public enum Type
+    {
+        Base,
+        Cannon,
+        Homing1,
+        Homing2,
+        FlameThrower,
+        MachineGun,
+        Laser,
+        Heart,
+        Ice,
+        Wide,
+    }
+
+    [SerializeField] private Type type;
 
 
     private void Awake()
@@ -78,6 +95,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
         currentBulletSpawnDuration = minBulletSpawnDuration;
         StartCoroutine(SpawnBullet());
 
+        ChangeShip();
     }
 
     void Update()
@@ -110,6 +128,54 @@ public class Player_Controller : MonoBehaviour, IDamageable
         currentHealth = Mathf.Clamp(currentHealth, 1, 99);
         ChangeLevel();
     }
+
+
+    private void ChangeShip()
+    {
+        switch (type)
+        {
+            case Type.Cannon:
+
+                renderer.sprite = ships[1];
+                break;
+
+            case Type.Homing1:
+
+                renderer.sprite = ships[2];
+                break;
+            case Type.Homing2:
+
+                renderer.sprite = ships[3];
+                break;
+            case Type.FlameThrower:
+
+                renderer.sprite = ships[4];
+                break;
+            case Type.MachineGun:
+
+                renderer.sprite = ships[5];
+                break;
+            case Type.Laser:
+
+                renderer.sprite = ships[6];
+                break;
+            case Type.Heart:
+
+                renderer.sprite = ships[7];
+                break;
+            case Type.Ice:
+
+                renderer.sprite = ships[8];
+                break;
+            case Type.Wide:
+
+                renderer.sprite = ships[9];
+                break;
+            default:
+                break;
+        }
+    }
+
 
     private IEnumerator SpawnBullet()
     {
@@ -196,7 +262,6 @@ public class Player_Controller : MonoBehaviour, IDamageable
         }
         bulletSpread = false;
     }
-
 
     private IEnumerator IncreaseFireRate()
     {

@@ -14,7 +14,6 @@ public class UI_StartGame : MonoBehaviour
         missionScreen.GetComponent<TMP_Text>().text = ("MISSION " + level);
     }
 
-
     private void StartGame()
     {
         startGame.Invoke();
