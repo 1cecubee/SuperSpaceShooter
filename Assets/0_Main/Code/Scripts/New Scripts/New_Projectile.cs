@@ -31,28 +31,3 @@ public class New_Projectile : MonoBehaviour
 
 }
 
-//    public ObstacelType currentObstacleType;
-
-//    public enum ObstacelType
-//    {
-//        verticalObstacle,
-//        horizontalObstacle,
-//        shrinkObstacle,
-//        stopAtRandomLocationObtacle,
-//        smokeObstacle,
-//    }
-
-//    private void Start()
-//    {
-//        currentObstacleType = GetRandomEnumType<ObstacelType>();
-//    }
-
-//    private T GetRandomEnumType<T>()
-//    {
-//        Array values = Enum.GetValues(typeof(T));
-//        int randomIndex = UnityEngine.Random.Range(0, values.Length);
-//        return (T)values.GetValue(randomIndex);
-//    }
-
-//}
-

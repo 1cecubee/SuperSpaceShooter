@@ -5667,6 +5667,7 @@ GameObject:
   - component: {fileID: 380320948}
   - component: {fileID: 380320949}
   - component: {fileID: 380320950}
+  - component: {fileID: 380320951}
   m_Layer: 0
   m_Name: Iron Ball
   m_TagString: Untagged
@@ -5684,8 +5685,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 639559974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5780,6 +5781,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.14666666
+--- !u!114 &380320951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380320947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1065900f0b18f1c4abceddb9f378082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &477460325
 GameObject:
   m_ObjectHideFlags: 0
@@ -17402,6 +17415,7 @@ GameObject:
   - component: {fileID: 986798738}
   - component: {fileID: 986798739}
   - component: {fileID: 986798740}
+  - component: {fileID: 986798741}
   m_Layer: 0
   m_Name: Iron Ball
   m_TagString: Untagged
@@ -17419,8 +17433,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -1.15, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 639559974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -17515,6 +17529,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.000000059604645, y: 0}
   m_Radius: 0.14666669
+--- !u!114 &986798741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986798737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1065900f0b18f1c4abceddb9f378082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1028731179
 GameObject:
   m_ObjectHideFlags: 0
@@ -29533,6 +29559,7 @@ GameObject:
   - component: {fileID: 1872624658}
   - component: {fileID: 1872624659}
   - component: {fileID: 1872624660}
+  - component: {fileID: 1872624661}
   m_Layer: 0
   m_Name: Iron Ball
   m_TagString: Untagged
@@ -29550,8 +29577,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 1.15, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 639559974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -29646,6 +29673,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.14666669
+--- !u!114 &1872624661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872624657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1065900f0b18f1c4abceddb9f378082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1875940899
 GameObject:
   m_ObjectHideFlags: 0
@@ -29769,12 +29808,15 @@ MonoBehaviour:
   - {fileID: 1927423118}
   - {fileID: 1883017237}
   - {fileID: 375723151}
-  abilityProjectilePoionts: []
+  abilityProjectilePoionts:
+  - {fileID: 48991456}
+  - {fileID: 575051488}
   magnetRange: {fileID: 0}
   renderer: {fileID: 0}
-  defaultBulletPrefab: {fileID: 2127302898861109201, guid: 1341e9b2c4ed689469d15470f975744a, type: 3}
-  icyBulletPrefab: {fileID: 763502134491852089, guid: d519f4c50ea883b43800daca52bc6292, type: 3}
-  currentBulletPrefab: {fileID: 2127302898861109201, guid: 1341e9b2c4ed689469d15470f975744a, type: 3}
+  defaultBullet: {fileID: 2127302898861109201, guid: 1341e9b2c4ed689469d15470f975744a, type: 3}
+  currentAbilityBullet:
+  - {fileID: 7798110990401844902, guid: 56ac1be115db6e241afe1ec5dae33fa6, type: 3}
+  - {fileID: 8381644763800818120, guid: 2453b560d9a7b1c4a8ae55a859211e41, type: 3}
   playerHealthText: {fileID: 0}
   coinsText: {fileID: 477460328}
   scoreText: {fileID: 1406306587}
@@ -29802,7 +29844,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 085d04766aee6754c9e742aa15c0eb31, type: 3}
   - {fileID: 21300000, guid: 2012fb46e47d99a49a36165fdbbacf89, type: 3}
   - {fileID: 21300000, guid: a65b37f2678b74446ba0db6759d4e45b, type: 3}
-  type: 1
+  type: 2
 --- !u!60 &1875940904
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -29986,6 +30028,7 @@ GameObject:
   - component: {fileID: 1923015383}
   - component: {fileID: 1923015384}
   - component: {fileID: 1923015385}
+  - component: {fileID: 1923015386}
   m_Layer: 0
   m_Name: Iron Ball
   m_TagString: Untagged
@@ -30003,8 +30046,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 639559974}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30099,6 +30142,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.14666666
+--- !u!114 &1923015386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923015382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1065900f0b18f1c4abceddb9f378082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1927423117
 GameObject:
   m_ObjectHideFlags: 0

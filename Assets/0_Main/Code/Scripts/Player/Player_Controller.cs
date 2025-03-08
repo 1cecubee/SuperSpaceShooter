@@ -27,9 +27,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private CircleCollider2D magnetRange;
 
     [SerializeField] private new SpriteRenderer renderer;
-    [SerializeField] private Rigidbody2D defaultBulletPrefab;
-    [SerializeField] private Rigidbody2D icyBulletPrefab;
-    [SerializeField] private Rigidbody2D currentBulletPrefab;
+    [SerializeField] private Rigidbody2D defaultBullet;
+    [SerializeField] private Rigidbody2D[] currentAbilityBullet;
     [SerializeField] private TMP_Text playerHealthText, coinsText, scoreText;
     [SerializeField] private GameObject bomb, shield, cannonBalls;
     [SerializeField] private GameObject[] mainMenuCanvas;
@@ -89,14 +88,12 @@ public class Player_Controller : MonoBehaviour, IDamageable
         score = Level_Manager.instance.currentLevel;
 
         mainCamera = Camera.main;
-        currentBulletPrefab = defaultBulletPrefab;
         currentHealth = maxHealth;
 
         shield.gameObject.SetActive(false);
         currentBulletSpawnDuration = minBulletSpawnDuration;
-        StartCoroutine(SpawnBullet());
-
         ChangeShip();
+        StartCoroutine(SpawnBullet());
     }
 
     void Update()
@@ -149,12 +146,14 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[2];
                 ColorUtility.TryParseHtmlString("#4A663C", out Color homing1Color);
+                StartCoroutine(SpawnAbilityBullet(3F, currentAbilityBullet[0]));
                 trail.startColor = homing1Color;
                 break;
             case Type.Homing2:
 
                 renderer.sprite = ships[3];
                 ColorUtility.TryParseHtmlString("#C73538", out Color homing2Color);
+                StartCoroutine(SpawnAbilityBullet(5F, currentAbilityBullet[1]));
                 trail.startColor = homing2Color;
                 break;
             case Type.FlameThrower:
@@ -167,6 +166,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[5];
                 ColorUtility.TryParseHtmlString("#C73538", out Color machineGunColor);
+                //  StartCoroutine(SpawnAbilityBullet(0.1F, currentAbilityBullet[2]));
                 trail.startColor = machineGunColor;
 
                 break;
@@ -174,24 +174,28 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[6];
                 ColorUtility.TryParseHtmlString("#3D5FAD", out Color laserColor);
+                //  StartCoroutine(SpawnAbilityBullet(2F, currentAbilityBullet[3]));
                 trail.startColor = laserColor;
                 break;
             case Type.Heart:
 
                 renderer.sprite = ships[7];
                 ColorUtility.TryParseHtmlString("#FA76E9", out Color heartColor);
+                //   StartCoroutine(SpawnAbilityBullet(2.5F, currentAbilityBullet[4]));
                 trail.startColor = heartColor;
                 break;
             case Type.Ice:
 
                 renderer.sprite = ships[8];
                 ColorUtility.TryParseHtmlString("#A4E0FE", out Color iceColor);
+                //  StartCoroutine(SpawnAbilityBullet(4F, currentAbilityBullet[5]));
                 trail.startColor = iceColor;
                 break;
             case Type.Wide:
 
                 renderer.sprite = ships[9];
                 ColorUtility.TryParseHtmlString("#FDD954", out Color wideColor);
+                //StartCoroutine(SpawnAbilityBullet(1F, currentAbilityBullet[6]));
                 trail.startColor = wideColor;
                 break;
             default:
@@ -206,21 +210,36 @@ public class Player_Controller : MonoBehaviour, IDamageable
     {
         while (true)
         {
-            var projectile = Instantiate(currentBulletPrefab, bulletSpawnPoints[0].position, Quaternion.identity);
+            var projectile = Instantiate(defaultBullet, bulletSpawnPoints[0].position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoints[0].transform.forward * bulletSpeed * Time.deltaTime;
             projectile.AddForce(bulletSpawnPoints[0].up * bulletSpeed, ForceMode2D.Impulse);
 
             if (bulletSpread)
             {
-                var projectile2 = Instantiate(currentBulletPrefab, bulletSpawnPoints[1].position, Quaternion.identity);
+                var projectile2 = Instantiate(defaultBullet, bulletSpawnPoints[1].position, Quaternion.identity);
                 projectile2.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoints[1].transform.forward * bulletSpeed * Time.deltaTime;
                 projectile2.AddForce(bulletSpawnPoints[1].up * bulletSpeed, ForceMode2D.Impulse);
 
-                var projectile3 = Instantiate(currentBulletPrefab, bulletSpawnPoints[2].position, Quaternion.identity);
+                var projectile3 = Instantiate(defaultBullet, bulletSpawnPoints[2].position, Quaternion.identity);
                 projectile3.GetComponent<Rigidbody2D>().linearVelocity = bulletSpawnPoints[2].transform.forward * bulletSpeed * Time.deltaTime;
                 projectile3.AddForce(bulletSpawnPoints[2].up * bulletSpeed, ForceMode2D.Impulse);
             }
             yield return new WaitForSeconds(currentBulletSpawnDuration);
+        }
+    }
+
+    private IEnumerator SpawnAbilityBullet(float spawnDuration, Rigidbody2D bulletType)
+    {
+        while (true)
+        {
+            var projectile = Instantiate(bulletType, abilityProjectilePoionts[0].position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[0].transform.forward * bulletSpeed * Time.deltaTime;
+            projectile.AddForce(abilityProjectilePoionts[0].up * bulletSpeed, ForceMode2D.Impulse);
+
+            var projectile1 = Instantiate(bulletType, abilityProjectilePoionts[1].position, Quaternion.identity);
+            projectile1.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[1].transform.forward * bulletSpeed * Time.deltaTime;
+            projectile1.AddForce(abilityProjectilePoionts[1].up * bulletSpeed, ForceMode2D.Impulse);
+            yield return new WaitForSeconds(spawnDuration);
         }
     }
 

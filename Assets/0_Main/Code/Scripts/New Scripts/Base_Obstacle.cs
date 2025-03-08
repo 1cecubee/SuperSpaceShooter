@@ -324,6 +324,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     private void OnBecameInvisible()
     {
         isVisible = false;
+        Destroy(gameObject);
     }
 
     private void OnBecameVisible()
