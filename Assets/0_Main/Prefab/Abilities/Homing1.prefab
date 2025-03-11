@@ -5012,5 +5012,5 @@ MonoBehaviour:
   target: {fileID: 0}
   rb: {fileID: 0}
   damageAmount: 5
-  speed: 2.5
-  rotateSpeed: 200
+  speed: 5
+  rotateSpeed: 500

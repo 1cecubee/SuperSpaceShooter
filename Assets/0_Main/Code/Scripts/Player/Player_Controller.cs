@@ -146,14 +146,14 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[2];
                 ColorUtility.TryParseHtmlString("#4A663C", out Color homing1Color);
-                StartCoroutine(SpawnAbilityBullet(3F, currentAbilityBullet[0]));
+                StartCoroutine(SpawnAbilityBullet(3F, currentAbilityBullet[0], 5F));
                 trail.startColor = homing1Color;
                 break;
             case Type.Homing2:
 
                 renderer.sprite = ships[3];
                 ColorUtility.TryParseHtmlString("#C73538", out Color homing2Color);
-                StartCoroutine(SpawnAbilityBullet(5F, currentAbilityBullet[1]));
+                StartCoroutine(SpawnAbilityBullet(1F, currentAbilityBullet[1], 5F));
                 trail.startColor = homing2Color;
                 break;
             case Type.FlameThrower:
@@ -195,7 +195,9 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[9];
                 ColorUtility.TryParseHtmlString("#FDD954", out Color wideColor);
-                //StartCoroutine(SpawnAbilityBullet(1F, currentAbilityBullet[6]));
+                abilityProjectilePoionts[0].rotation = Quaternion.Euler(0f, 0f, 25f);
+                abilityProjectilePoionts[1].rotation = Quaternion.Euler(0f, 0f, -25f);
+                StartCoroutine(SpawnAbilityBullet(5F, currentAbilityBullet[2], 1F));
                 trail.startColor = wideColor;
                 break;
             default:
@@ -228,15 +230,15 @@ public class Player_Controller : MonoBehaviour, IDamageable
         }
     }
 
-    private IEnumerator SpawnAbilityBullet(float spawnDuration, Rigidbody2D bulletType)
+    private IEnumerator SpawnAbilityBullet(float spawnDuration, Rigidbody2D bulletType, float bulletSpeed)
     {
         while (true)
         {
-            var projectile = Instantiate(bulletType, abilityProjectilePoionts[0].position, Quaternion.identity);
+            var projectile = Instantiate(bulletType, abilityProjectilePoionts[0].position, Quaternion.LookRotation(abilityProjectilePoionts[0].forward, abilityProjectilePoionts[0].up));
             projectile.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[0].transform.forward * bulletSpeed * Time.deltaTime;
             projectile.AddForce(abilityProjectilePoionts[0].up * bulletSpeed, ForceMode2D.Impulse);
 
-            var projectile1 = Instantiate(bulletType, abilityProjectilePoionts[1].position, Quaternion.identity);
+            var projectile1 = Instantiate(bulletType, abilityProjectilePoionts[1].position, Quaternion.LookRotation(abilityProjectilePoionts[1].forward, abilityProjectilePoionts[1].up));
             projectile1.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[1].transform.forward * bulletSpeed * Time.deltaTime;
             projectile1.AddForce(abilityProjectilePoionts[1].up * bulletSpeed, ForceMode2D.Impulse);
             yield return new WaitForSeconds(spawnDuration);
