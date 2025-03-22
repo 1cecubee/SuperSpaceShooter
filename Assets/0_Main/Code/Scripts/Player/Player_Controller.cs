@@ -207,7 +207,6 @@ public class Player_Controller : MonoBehaviour, IDamageable
         }
     }
 
-
     private IEnumerator SpawnBullet()
     {
         while (true)
