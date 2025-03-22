@@ -14,7 +14,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private float targetScore;
     [SerializeField] private float maxHealth;
     [SerializeField] private float targetHealth;
-    [SerializeField] private float currentHealth;
+    public float currentHealth;
 
     [SerializeField] private float minBulletSpawnDuration = 0.2F;
     [SerializeField] private float maxBulletSpawnDuration = 0.1F;
@@ -23,7 +23,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
     [Title("COMPONENT REF", Shades.Green)]
     [SerializeField] private Transform[] bulletSpawnPoints;
-    [SerializeField] private Transform[] abilityProjectilePoionts;
+    [SerializeField] private Transform[] abilityProjectilePoints;
     [SerializeField] private CircleCollider2D magnetRange;
 
     [SerializeField] private new SpriteRenderer renderer;
@@ -33,6 +33,15 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [SerializeField] private GameObject bomb, shield, cannonBalls;
     [SerializeField] private GameObject[] mainMenuCanvas;
     [SerializeField] private Coins_Manager coins;
+
+
+    [Title("M A C H I N E  G U N")]
+    [SerializeField] private GameObject[] machineGunParticle;
+
+
+    [Title("F L A M E  T H R O W E R")]
+    [SerializeField] private GameObject[] flameThrowerParticle;
+
 
     private float magnetTimer;
     private float shieldTimer;
@@ -51,6 +60,7 @@ public class Player_Controller : MonoBehaviour, IDamageable
     [Title("F E E L", Shades.Orange)]
     [SerializeField] private MMFeedbacks blinkEffect;
     [SerializeField] private MMFeedbacks shieldBlinkEffect;
+    [SerializeField] private MMFeedbacks healEffect;
 
     [Title("SHIP SELECTOR")]
     [SerializeField] private Sprite[] ships;
@@ -128,6 +138,12 @@ public class Player_Controller : MonoBehaviour, IDamageable
     }
 
 
+    public void heartHeal()
+    {
+        healEffect.PlayFeedbacks();
+    }
+
+
     private void ChangeShip()
     {
         var trail = GetComponentInChildren<ParticleSystem>();
@@ -160,13 +176,16 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[4];
                 ColorUtility.TryParseHtmlString("#9B281A", out Color flameThrowerColor);
+                flameThrowerParticle[0].SetActive(true);
+                flameThrowerParticle[1].SetActive(true);
                 trail.startColor = flameThrowerColor;
                 break;
             case Type.MachineGun:
 
                 renderer.sprite = ships[5];
                 ColorUtility.TryParseHtmlString("#C73538", out Color machineGunColor);
-                //  StartCoroutine(SpawnAbilityBullet(0.1F, currentAbilityBullet[2]));
+                machineGunParticle[0].SetActive(true);
+                machineGunParticle[1].SetActive(true);
                 trail.startColor = machineGunColor;
 
                 break;
@@ -174,29 +193,31 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[6];
                 ColorUtility.TryParseHtmlString("#3D5FAD", out Color laserColor);
-                //  StartCoroutine(SpawnAbilityBullet(2F, currentAbilityBullet[3]));
+                abilityProjectilePoints[0].rotation = Quaternion.Euler(0f, 0f, 25f);
+                abilityProjectilePoints[1].rotation = Quaternion.Euler(0f, 0f, -25f);
+                StartCoroutine(SpawnAbilityBullet(0.5F, currentAbilityBullet[3], 8F));
                 trail.startColor = laserColor;
                 break;
             case Type.Heart:
 
                 renderer.sprite = ships[7];
                 ColorUtility.TryParseHtmlString("#FA76E9", out Color heartColor);
-                //   StartCoroutine(SpawnAbilityBullet(2.5F, currentAbilityBullet[4]));
+                StartCoroutine(SpawnAbilityBullet(1F, currentAbilityBullet[4], 1.5F));
                 trail.startColor = heartColor;
                 break;
             case Type.Ice:
 
                 renderer.sprite = ships[8];
                 ColorUtility.TryParseHtmlString("#A4E0FE", out Color iceColor);
-                //  StartCoroutine(SpawnAbilityBullet(4F, currentAbilityBullet[5]));
+                StartCoroutine(SpawnAbilityBullet(1F, currentAbilityBullet[5], 7F));
                 trail.startColor = iceColor;
                 break;
             case Type.Wide:
 
                 renderer.sprite = ships[9];
                 ColorUtility.TryParseHtmlString("#FDD954", out Color wideColor);
-                abilityProjectilePoionts[0].rotation = Quaternion.Euler(0f, 0f, 25f);
-                abilityProjectilePoionts[1].rotation = Quaternion.Euler(0f, 0f, -25f);
+                abilityProjectilePoints[0].rotation = Quaternion.Euler(0f, 0f, 25f);
+                abilityProjectilePoints[1].rotation = Quaternion.Euler(0f, 0f, -25f);
                 StartCoroutine(SpawnAbilityBullet(5F, currentAbilityBullet[2], 1F));
                 trail.startColor = wideColor;
                 break;
@@ -233,13 +254,13 @@ public class Player_Controller : MonoBehaviour, IDamageable
     {
         while (true)
         {
-            var projectile = Instantiate(bulletType, abilityProjectilePoionts[0].position, Quaternion.LookRotation(abilityProjectilePoionts[0].forward, abilityProjectilePoionts[0].up));
-            projectile.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[0].transform.forward * bulletSpeed * Time.deltaTime;
-            projectile.AddForce(abilityProjectilePoionts[0].up * bulletSpeed, ForceMode2D.Impulse);
+            var projectile = Instantiate(bulletType, abilityProjectilePoints[0].position, Quaternion.LookRotation(abilityProjectilePoints[0].forward, abilityProjectilePoints[0].up));
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoints[0].transform.forward * bulletSpeed * Time.deltaTime;
+            projectile.AddForce(abilityProjectilePoints[0].up * bulletSpeed, ForceMode2D.Impulse);
 
-            var projectile1 = Instantiate(bulletType, abilityProjectilePoionts[1].position, Quaternion.LookRotation(abilityProjectilePoionts[1].forward, abilityProjectilePoionts[1].up));
-            projectile1.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoionts[1].transform.forward * bulletSpeed * Time.deltaTime;
-            projectile1.AddForce(abilityProjectilePoionts[1].up * bulletSpeed, ForceMode2D.Impulse);
+            var projectile1 = Instantiate(bulletType, abilityProjectilePoints[1].position, Quaternion.LookRotation(abilityProjectilePoints[1].forward, abilityProjectilePoints[1].up));
+            projectile1.GetComponent<Rigidbody2D>().linearVelocity = abilityProjectilePoints[1].transform.forward * bulletSpeed * Time.deltaTime;
+            projectile1.AddForce(abilityProjectilePoints[1].up * bulletSpeed, ForceMode2D.Impulse);
             yield return new WaitForSeconds(spawnDuration);
         }
     }
@@ -372,7 +393,6 @@ public class Player_Controller : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
-
 
     public void ChangeLevel()
     {

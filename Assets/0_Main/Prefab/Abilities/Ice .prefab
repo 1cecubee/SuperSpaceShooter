@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1059760650010517097}
   - component: {fileID: 5220610898221814760}
   - component: {fileID: 1561996649693082727}
+  - component: {fileID: -7707989021078602655}
   m_Layer: 0
   m_Name: 'Ice '
   m_TagString: Bullet
@@ -162,3 +163,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-7707989021078602655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7018234503322568941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bcb4856027daad4abd344197c78bb64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

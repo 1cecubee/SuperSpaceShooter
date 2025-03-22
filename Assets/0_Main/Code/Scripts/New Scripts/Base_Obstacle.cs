@@ -14,6 +14,7 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
     [SerializeField] private float maxHealth;
     [SerializeField] private float minSpeed;
     [SerializeField] private float maxSpeed;
+    public float currentSpeed;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private int score;
 
@@ -220,7 +221,8 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
         minSpeed = 1F;
         maxSpeed = 3F;
         Debug.Log("VerticallMoveObstacle");
-        float verticalSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        //   float verticalSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
+        currentSpeed = UnityEngine.Random.Range(minSpeed, maxSpeed);
     }
 
     private void HorizontalObstacle()
