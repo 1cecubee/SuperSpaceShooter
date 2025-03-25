@@ -300,6 +300,11 @@ public class Base_Obstacle : MonoBehaviour, IDamageable
         }
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        currentHealth -= 0.1F;
+    }
+
     public void Damage(float damageAmount)
     {
         if (decreaseScaleOnHit)

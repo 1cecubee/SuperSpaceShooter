@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using Emp37.Utility;
 using MoreMountains.Feedbacks;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +42,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
 
     [Title("F L A M E  T H R O W E R")]
-    [SerializeField] private GameObject[] flameThrowerParticle;
+    [SerializeField] private ParticleSystem[] flameThrowerParticle;
+    [SerializeField] private List<ParticleCollisionEvent> collisionEvent;
 
 
     private float magnetTimer;
@@ -176,8 +179,8 @@ public class Player_Controller : MonoBehaviour, IDamageable
 
                 renderer.sprite = ships[4];
                 ColorUtility.TryParseHtmlString("#9B281A", out Color flameThrowerColor);
-                flameThrowerParticle[0].SetActive(true);
-                flameThrowerParticle[1].SetActive(true);
+                flameThrowerParticle[0].gameObject.SetActive(true);
+                flameThrowerParticle[1].gameObject.SetActive(true);
                 trail.startColor = flameThrowerColor;
                 break;
             case Type.MachineGun:
@@ -405,4 +408,5 @@ public class Player_Controller : MonoBehaviour, IDamageable
             Level_Manager.instance.AdvanceLevel();
         }
     }
+
 }

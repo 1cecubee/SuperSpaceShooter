@@ -11,7 +11,6 @@ public class ScaleBackgroundToScreen : MonoBehaviour
     private static readonly int speedHash = Shader.PropertyToID("_Speed");
     public float Speed { get => material.GetFloat(speedHash); private set => material.SetFloat(speedHash, value); }
 
-
     private void Reset()
     {
         if (TryGetComponent(out renderer))
